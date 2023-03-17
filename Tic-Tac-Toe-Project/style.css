@@ -85,6 +85,7 @@ table {
 		transform: rotate(15deg);
 }
 .btn{
+	font-size: medium;
 	text-align: center;
 }
 .btn2{
