@@ -13,15 +13,15 @@ function playermode(elem){
 }
 
 const winning = [
-    //horizontal
+    //side ways
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
-    //vertical
+    //straight
     [0, 3, 6],
     [1, 4, 7],
     [2, 5, 8],
-    //slant
+    //diagonally
     [0, 4, 8],
     [6, 4, 2]
 ]
@@ -43,14 +43,9 @@ function startGame() {
 
 
 function whosturn(grid) {
-    // // write down the ID of any cell clicked
-    // console.log(grid.target.id)
     if(gameType=="comp"){
-        if (typeof startboard[grid.target.id] == 'number') { //If the clicked ID is "number", it means that both human and AI have not played in that position. So.....
-            // pass in the ID that clicking 
+        if (typeof startboard[grid.target.id] == 'number') {
             turn(grid.target.id, oPlayer)
-    
-            //After the player takes a turn, check to see if there is a tie
             if (!checkTie()) turn(bestmove(), aiPlayer);
         }
     }
@@ -77,26 +72,21 @@ function whosturn(grid) {
 
 
 function turn(squareId, objectPlayer) {
-    startboard[squareId] = objectPlayer; //shows the player who has clicked the cell
-    document.getElementById(squareId).innerText = objectPlayer; //put more string in the cell with the ID just called
+    startboard[squareId] = objectPlayer; 
+    document.getElementById(squareId).innerText = objectPlayer; 
     moves.push(squareId)
-    let gameWon = checkWin(startboard, objectPlayer) //check win
+    let gameWon = checkWin(startboard, objectPlayer) 
     if (gameWon) gameOver(gameWon)
 }
 
 function checkWin(board, player) {
     let plays = board.reduce((a, e, i) =>
-        (e === player) ? a.concat(i) : a, []); /* Use the minify method which will go through every element in the board array. And the concat function will not change the current array, but it will return a new array that will contain the values of the arrays passed in.
-    // a is the final value to be returned
-    // e is the element in the board array we are running through and indexing*/
+        (e === player) ? a.concat(i) : a, []);
     let gameWon = null;
     for (let [index, win] of winning.entries())
-    /* entries: Returns the enumerable property array of [key, value] pairs with the given object, similar to using the for ... in iteration. */ {
+     {
         if (win.every(elem => plays.indexOf(elem) > -1))
-        //In essence the every function has the same effect as using a loop to loop through all elements of the array. 
-        //The indexOf function will look for an element in the array based on the value of the element, it returns the position (key) of the element if found, and -1 if it is not found.
         {
-            //if the player satisfies any array of values in winning
             gameWon = { index: index, player: player };
             break;
         }
@@ -104,7 +94,7 @@ function checkWin(board, player) {
     return gameWon;
 }
 
-//create highlights all cells that make up a victory and prevents the user from entering any more boxes
+
 function gameOver(gameWon) {
     for (let index of winning[gameWon.index]) {
         document.getElementById(index).style.backgroundColor =
@@ -123,14 +113,10 @@ function declareWinner(whoWin) {
 }
 
 function emptygrids() {
-    //filter every element from the board array
     return startboard.filter(s => typeof s == 'number');
 }
 
 function bestmove() {
-    // //Find all blank cells and get first element from blank cell. So the AI will always play the first slot
-    // return emptygrids()[0];
-
     return minimax(startboard, aiPlayer).index;
 }
 
@@ -147,10 +133,8 @@ function checkTie() {
 }
 
 function minimax(board, player) {
-    //  find the indexes of the available spots in the board and set them to a variable called availSpots
     var availSpots = emptygrids();
 
-    // check terminal states
     if (checkWin(board, oPlayer)) {
         return { score: -10 }; // O win
     } else if (checkWin(board, aiPlayer)) {
@@ -158,17 +142,12 @@ function minimax(board, player) {
     } else if (availSpots.length === 0) {
         return { score: 0 }; // tie
     }
-    // Next, you need to collect the scores from each of the empty spots to evaluate later.
     var moves = [];
-    //  Therefore, make an array called moves and loop through empty spots while collecting each move’s index and score in an object called move.
     for (var i = 0; i < availSpots.length; i++) {
         var move = {};
-        // Then, set the index number of the empty spot that was stored as a number in the startboard to the index property of the move object
         move.index = board[availSpots[i]];
-        // set the empty spot on the newboard to the current player
         board[availSpots[i]] = player;
 
-        // store the object resulted from the minimax function call that includes a score property to the score property of the move object.
         if (player == aiPlayer) {
             var result = minimax(board, oPlayer);
             move.score = result.score;
@@ -179,21 +158,16 @@ function minimax(board, player) {
 
         board[availSpots[i]] = move.index;
 
-        // minimax reset new board to what it was before and pushes the move object to the moves aray
         moves.push(move);
     }
 
-    // Then, the minimax algorithm needs to evaluate the best move in the moves array
     var bestMove;
-    // It should choose the move with the highest score when AI is playing and the move with the lowest score when the human is playing. So...
     if (player === aiPlayer) {
-        // If the player is aiPlayer, it sets a variable called bestScore to a very low number and loops through the moves array, 
         var bestScore = -10000;
         for (var i = 0; i < moves.length; i++) {
-            // if a move has a higher score than bestScore, the algorithm stores that move
             if (moves[i].score > bestScore) {
                 bestScore = moves[i].score;
-                bestMove = i; // In case there are moves with similar score, only the first one will be stored.
+                bestMove = i; 
             }
         }
     } else {
@@ -209,7 +183,7 @@ function minimax(board, player) {
     return moves[bestMove];
 }
 
-// Replay Tic Tac Toe button
+// Replay button
 const docStyle = document.documentElement.style
 const aElem = document.querySelector('a')
 const boundingClientRect = aElem.getBoundingClientRect()
