@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="col-md-12 text-center mb-5">
+        <a href="{% url 'home' %}" class="btn btn-primary btn-lg center-block">Yeni Metin Gir</a>
+    </div>
+
+    <hr class="bg-dark">
+    <h3 class="text-center">Girdiğiniz Metin</h3>
+    {{ fulltext }}
+
+    <hr class="bg-dark mt-5">
+
+    <h6>Metniniz {{ count }} kelimeden oluşmaktadır.</h6>
+    <hr class="bg-dark">
+
+    <h4 class="text-center">En çok kullanılan kelimeler</h4>
+    <div class="row">
+        {% for word,total in maxwords.items %}
+            <div class="col-md-4 list-group-item overflow-auto bg-hover" >
+                {{ word }} : {{ total }} kere kullanıldı
+            </div>
+        {% endfor %}
+    </div>
+
+
+
+
+    <hr class="bg-dark mt-5">
+    <h4 class="text-center mb-3">Kelimeler ve kullanım sayıları</h4>
+
+    <div class="row">
+        {% for word,counttotal in sortedwords %}
+            <div class="col-md-4 list-group-item bg-hover">
+                {{ word }} : {{ counttotal }}
+            </div>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}

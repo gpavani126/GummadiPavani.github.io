@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% if messages %}
+
+        {% for message in messages %}
+            <div class="alert alert-info text-center">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+
+
+
+
+    <form action="{% url 'count' %} " method="POST">
+        {% csrf_token %}
+        <h1 class="text-center">Kelime Sayacı</h1>
+        <div class="form-group">
+            <label class="font-weight-bold">Bir metin giriniz</label>
+            <textarea class="form-control" name="fulltext" cols="40" rows="10"></textarea>
+        </div>
+        <div class="col-md-12 text-center">
+            <button type="submit" class="btn btn-primary btn-lg center-block">İşlem Yap</button>
+        </div>
+    </form>
+
+{% endblock %}
+

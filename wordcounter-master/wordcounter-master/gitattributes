@@ -1,0 +1,4 @@
+producthunt/* linguist-documentation
+*.html linguist-vendored
+*.css linguist-vendored
+*.js linguist-vendored
