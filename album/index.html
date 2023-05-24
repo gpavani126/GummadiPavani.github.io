@@ -60,8 +60,7 @@
         <img src="14.jpeg" class="img-fluid my-2">
       </div>
     </div>
-  </div>
-   <div class="button-container">
+      <div class="button-container">
         <button class="color-btn reddish">Reddish</button>
         <button class="color-btn blueish">Blueish</button>
         <button class="color-btn greenish">Greenish</button>
@@ -70,6 +69,8 @@
         <button class="grayscale-btn">Gray scale</button>
         <button class="thumbnail-btn">Create thumbnails</button>
     </div>
+  </div>
+ 
   <style>
     .img-fluid my-2:hover {
     transform: scale(1.05);
@@ -82,7 +83,7 @@
   </style>
    <script>
 function makeGreenish() {
-    const img = document.getElementById("i2");
+    const img = document.getElementsByClassName('col-sm-6 col-md-4 col-lg-3');
 
     // Increase red and decrease blue and green to make image reddish
     img.style.filter = "sepia(100%) saturate(200%) hue-rotate(20deg)";
@@ -90,17 +91,17 @@ function makeGreenish() {
 }
 
 function makeBlueish() {
-    const img = document.getElementById('i5');
+    const img = document.getElementsByClassName('col-sm-6 col-md-4 col-lg-3');
     img.style.filter = "brightness(110%) saturate(150%) hue-rotate(200deg)";
 }
 
 function makeBw() {
-    var img = document.getElementById("i9");
+    var img = document.getElementsByClassName('col-sm-6 col-md-4 col-lg-3');
     img.style.filter = "grayscale(100%)";
 }
 
 function createThumbnail(imgId) {
-    const img = document.getElementById(imgId);
+    const img = document.getElementsByClassName('col-sm-6 col-md-4 col-lg-3');
     img.style.border = '1px solid black';
     img.style.borderRadius = '50%';
     img.style.padding = '10px';
@@ -108,17 +109,17 @@ function createThumbnail(imgId) {
 }
 
 function makeReddish(imgId) {
-    var img = document.getElementById(imgId);
+    var img = document.getElementsByClassName('col-sm-6 col-md-4 col-lg-3');
     img.style.filter = "hue-rotate(30deg) saturate(2)";
 }
 
 function inv(imgId) {
-    var img = document.getElementById(imgId);
+    var img = document.getElementsByClassName('col-sm-6 col-md-4 col-lg-3');
     img.style.filter = "invert(100%)";
 }
 
 function increaseBrightness(imgId) {
-    var img = document.getElementById(imgId);
+    var img = document.getElementsByClassName('col-sm-6 col-md-4 col-lg-3');
     var brightness = 50; // Increase this value to make the image brighter
 
     // Set the brightness value for the image
