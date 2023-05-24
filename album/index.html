@@ -81,71 +81,78 @@
     background: linear-gradient(to right, #8360c3, #2ebf91);
   }
   </style>
-   <script>
-function makeGreenish() {
-    const img = document.getElementsByClassName('col-sm-6 col-md-4 col-lg-3');
+<script>
+        //Grey-Scale convert
+        let greyscaleConvert = Array.from(document.getElementsByClassName("grayscale-btn"))
+        let imageArr = Array.from(document.getElementsByTagName("img"))
+        greyscaleConvert.forEach((item) => {
+            item.addEventListener("click", function () {
+                console.log(greyscaleConvert.indexOf(item))
+                imageArr[greyscaleConvert.indexOf(item)].style.filter = "grayscale(100%)";
+            })
+        })
 
-    // Increase red and decrease blue and green to make image reddish
-    img.style.filter = "sepia(100%) saturate(200%) hue-rotate(20deg)";
+        //Make Image Red
+        let redConvert = Array.from(document.getElementsByClassName("red-btn"));
 
-}
-
-function makeBlueish() {
-    const img = document.getElementsByClassName('col-sm-6 col-md-4 col-lg-3');
-    img.style.filter = "brightness(110%) saturate(150%) hue-rotate(200deg)";
-}
-
-function makeBw() {
-    var img = document.getElementsByClassName('col-sm-6 col-md-4 col-lg-3');
-    img.style.filter = "grayscale(100%)";
-}
-
-function createThumbnail(imgId) {
-    const img = document.getElementsByClassName('col-sm-6 col-md-4 col-lg-3');
-    img.style.border = '1px solid black';
-    img.style.borderRadius = '50%';
-    img.style.padding = '10px';
-    img.style.width = '200px';
-}
-
-function makeReddish(imgId) {
-    var img = document.getElementsByClassName('col-sm-6 col-md-4 col-lg-3');
-    img.style.filter = "hue-rotate(30deg) saturate(2)";
-}
-
-function inv(imgId) {
-    var img = document.getElementsByClassName('col-sm-6 col-md-4 col-lg-3');
-    img.style.filter = "invert(100%)";
-}
-
-function increaseBrightness(imgId) {
-    var img = document.getElementsByClassName('col-sm-6 col-md-4 col-lg-3');
-    var brightness = 50; // Increase this value to make the image brighter
-
-    // Set the brightness value for the image
-    img.style.filter = "brightness(" + brightness + "%)";
-}
+        redConvert.forEach((item) => {
+            item.addEventListener("click", function () {
+                imageArr[redConvert.indexOf(item)].style.filter = "brightness(50%) sepia(100%) saturate(1500%)";
+            });
+        });
 
 
+        //Make Image Blur
+        let blurConvert = Array.from(document.getElementsByClassName("blur-btn"));
+
+        blurConvert.forEach((item) => {
+            item.addEventListener("click", function () {
+                imageArr[blurConvert.indexOf(item)].style.filter = "blur(4px)";
+            });
+        });
+
+        //Make Image Dull
+        let dullConvert = Array.from(document.getElementsByClassName("dull-btn"));
+
+        dullConvert.forEach((item) => {
+            item.addEventListener("click", function () {
+                imageArr[dullConvert.indexOf(item)].style.filter = "saturate(50%) brightness(50%)";
+            });
+        });
+
+        //Make the Image bright
+        let brightConvert = Array.from(document.getElementsByClassName("bright-btn"));
+
+        brightConvert.forEach((item) => {
+            item.addEventListener("click", function () {
+                imageArr[brightConvert.indexOf(item)].style.filter = "saturate(100%) brightness(200%)";
+            });
+        });
+
+        //Reduce Image opacity
+        let translucent = Array.from(document.getElementsByClassName("trns-btn"));
+
+        translucent.forEach((item) => {
+            item.addEventListener("click", function () {
+                imageArr[translucent.indexOf(item)].style.filter = "opacity(50%)";
+            });
+        });
 
 
-const gBtn = document.getElementsByClassName("color-btn greenish")[0];
-gBtn.addEventListener("click", makeGreenish);
+        //Restore the image
+        let restore = Array.from(document.getElementsByClassName("restore-btn"));
 
-const bBtn = document.getElementsByClassName("color-btn blueish")[0];
-bBtn.addEventListener("click", makeBlueish);
-const rBtn = document.getElementsByClassName("color-btn reddish")[0];
-rBtn.addEventListener("click", function() { makeReddish('i11') });
-const bwBtn = document.getElementsByClassName("grayscale-btn")[0];
-bwBtn.addEventListener("click", makeBw);
+        restore.forEach((item) => {
+            item.addEventListener("click", function () {
+                imageArr[restore.indexOf(item)].style.filter = "saturate(100%) brightness(100%)";
+            });
+        });
 
-const tBtn = document.getElementsByClassName("thumbnail-btn")[0];
-tBtn.addEventListener("click", function() { createThumbnail('i13') });
-const ibBtn = document.getElementsByClassName("brightness-btn")[0];
-ibBtn.addEventListener("click", function() { increaseBrightness('i10') });
-const inBtn = document.getElementsByClassName("negative-btn")[0];
-inBtn.addEventListener("click", function() { inv('i4') });
-      
-    </script>
+        
+
+
+
+
+  </script>
 </body>
 </html>
